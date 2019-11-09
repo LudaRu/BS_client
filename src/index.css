@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+@import "./bootstrap.css";
+
+
+.bg-0 {
+    background-color: #1a2033;
+}
+
+
+.row > * {
+    /*transition: all 0.3s ease-in-out;*/
+
+}
+
+/*@media (max-width:768px) {*/
+/*    [class*='col-sm'] {*/
+/*        width:100%;*/
+/*    }*/
+/*}*/
+
+.cursor{
+    cursor: pointer;
+}
+
+
+.f16 {
+    font-size: 20px !important;
+}
+
+
+.my-masonry-grid {
+    margin-top: .75rem;
+    display: flex;
+    margin-left: -0.5rem; /* gutter size offset */
+    width: auto;
+}
+.my-masonry-grid_column {
+    padding-left: 0.5rem; /* gutter size */
+    background-clip: padding-box;
+    /*transition: all 0.6s ease-in-out;*/
+}
+
+   .xxxx{
+       background: red;
+       width: 50px;
+       height: 50px;
+   }
+
+
+.my-node-enter {
+    opacity: 0;
+}
+.my-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+.my-node-exit {
+    opacity: 1;
+}
+.my-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+}
+
+
+/*ROUTER*/
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 150ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 150ms ease-in;
+}
+
+.route-section {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-bottom: 3rem;
+}
+
+#main{
+    overflow: auto;
+    max-height: 100vh;
+}
+
+.itemModalWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
