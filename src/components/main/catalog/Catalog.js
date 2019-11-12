@@ -4,9 +4,10 @@ import Masonry from 'react-masonry-css';
 import {CatalogService} from "./CatalogService";
 import Routers from "../../../App";
 import Container from "react-bootstrap/Container";
-import Modal from "./modal/Modal";
+import ModalWrapper from "./modal/ModalWrapper";
 import {Route, Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
+import ModalForms from "./item/ModalForms";
 
 
 
@@ -52,21 +53,22 @@ class Catalog extends Component {
         return (
             <Container className="mb-5">
                 <CatalogContext.Provider value={this.state}>
-                    <CSSTransition
-                        in={!!this.state.changeItemId}
-                        timeout={300}
-                        classNames="my-node"
-                        unmountOnExit
-                    >
-                        <Modal/>
-                    </CSSTransition>
-
                     <Masonry
                         breakpointCols={{default: 3, 992: 2, 768: 1,}}
                         className="my-masonry-grid"
                         columnClassName="my-masonry-grid_column">
                         {this.state.items.map((item) => <Index key={item.id} item={item}/>)}
                     </Masonry>
+                    <CSSTransition
+                        in={!!this.state.changeItemId}
+                        timeout={1}
+                        classNames="my-node"
+                        unmountOnExit
+                    >
+                        <ModalWrapper>
+                            <ModalForms/>
+                        </ModalWrapper>
+                    </CSSTransition>
                 </CatalogContext.Provider>
             </Container>
         );

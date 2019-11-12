@@ -3,9 +3,6 @@ import './style.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faHeart as farHeart, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import {faHeart} from '@fortawesome/free-solid-svg-icons';
-import {Element, scroller} from 'react-scroll';
-import {CSSTransition} from "react-transition-group";
-import ContentMore from "./ContentMore";
 import {CatalogService} from "../CatalogService";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
@@ -47,13 +44,6 @@ class Index extends React.Component {
         this.state = {
             item: props.item,
             isLike: props.item.isLike,
-            isOpen: false,
-            isEdit: false,
-            openItem: () => {this.openItem()},
-            closeItem: () => {this.closeItem()},
-            setEditMode: () => {this.setEditMode()},
-            setViewMode: () => {this.setViewMode()},
-            toggleLike: () => {this.toggleLike()},
         };
 
         this.toggleLike = this.toggleLike.bind(this);
@@ -61,29 +51,7 @@ class Index extends React.Component {
         this.openItem = this.openItem.bind(this);
         this.closeItem = this.closeItem.bind(this);
 
-        this.setEditMode = this.setEditMode.bind(this);
-        this.setViewMode = this.setViewMode.bind(this);
-
-        this.handleScroll = this.handleScroll.bind(this);
-
         this.renderContentPreview = this.renderContentPreview.bind(this);
-        this.renderImageWrapper = this.renderImageWrapper.bind(this);
-    }
-
-    componentDidMount() {
-        // this.rect = ReactDOM.findDOMNode(this);
-        // window.addEventListener('scroll', this.handleScroll);
-    };
-
-    componentWillUnmount() {
-        // window.removeEventListener('scroll', this.handleScroll);
-    };
-
-    handleScroll() {
-        // console.log(this.rect.getBoundingClientRect())
-        // const bottom =  window.pageYOffset+window.innerHeight;
-        // window.pageYOffset;
-        // console.log();
     }
 
     toggleLike() {
@@ -94,10 +62,9 @@ class Index extends React.Component {
 
     openItem() {
         this.props.context.setChangeItemId(this.props.item.id);
-        this.setState({isOpen: true});
         ToolbarService.setView(
             <ButtonGroup className="w-100">
-                <Button onClick={() => {this.setEditMode()}} variant="info">
+                <Button variant="info">
                     <FontAwesomeIcon icon={faEdit}/> Редактировать
                 </Button>
                 <Button onClick={() => {this.closeItem()}} variant="secondary">
@@ -109,51 +76,25 @@ class Index extends React.Component {
 
     closeItem() {
         this.props.context.setChangeItemId(false);
-        this.setState({isOpen: false});
         ToolbarService.reset();
     }
 
-    setEditMode() {
-        this.setState({isEdit: true});
-        ToolbarService.setView(
-            <ButtonGroup className="w-100">
-                <Button onClick={ToolbarService.back} variant="success">
-                    <FontAwesomeIcon icon={faEdit}/> Сохранить
-                </Button>
-                <Button onClick={() => {ToolbarService.back(); this.setViewMode()}} variant="secondary">
-                    <FontAwesomeIcon icon={faTimesCircle}/>
-                </Button>
-            </ButtonGroup>
-        )
-    }
-
-    setViewMode() {
-        this.setState({isEdit: false});
-    }
-
     render() {
-        const {isOpen} = this.state;
-        const {item} = this.props;
-
-        return <Element name={item.id} className="bg-white rounded item shadow-sm mb-3">
-            <CSSTransition in={isOpen} timeout={0} classNames="modeview">
-                <>
-                    <ItemContext.Provider value={this.state}>
-                        <div className="d-flex">
-                            { this.renderImageWrapper() }
-                            <div className="wcontent w-100 d-flex">
-                                { this.renderContentPreview() }
-                            </div>
-                        </div>
-                        <CSSTransition in={isOpen} timeout={500} classNames="weditoranim" unmountOnExit>
-                            <div className="weditor">
-                                <ContentMore/>
-                            </div>
-                        </CSSTransition>
-                    </ItemContext.Provider>
-                </>
-            </CSSTransition>
-        </Element>;
+        return <div className="bg-white rounded item shadow-sm mb-3">
+            <ItemContext.Provider value={this.state}>
+                <div className="d-flex">
+                    <div className="wimg item-img rounded overflow-hidden" onClick={() => {
+                        this.openItem()
+                    }}>
+                        <span style={{backgroundImage: `url(${this.props.item.imgUrl})`}} className="ttex"></span>
+                        <img className="rounded" src={this.props.item.imgUrl}/>
+                    </div>
+                    <div className="wcontent w-100 d-flex">
+                        {this.renderContentPreview()}
+                    </div>
+                </div>
+            </ItemContext.Provider>
+        </div>;
     }
 
 
@@ -169,7 +110,7 @@ class Index extends React.Component {
                     </div>
                 </div>
             </div>
-            <div className="item-toolbar  justify-content-between flex-column p-2">
+            <div className="item-toolbar justify-content-between flex-column p-2">
                 <div>
                     <FontAwesomeIcon
                         onClick={this.toggleLike}
@@ -179,20 +120,6 @@ class Index extends React.Component {
                 </div>
             </div>
         </>;
-    }
-
-    renderImageWrapper() {
-        const edit = <div className="wimg item-img rounded overflow-hidden">
-            <img className="rounded imgUploader" src="https://avatars.mds.yandex.net/get-canvas/1637513/2a0000016d9637a6270531ff81d8f5b665bb/cropSource"/>
-            <input className="fileinput" type="file" />
-        </div>;
-
-        const view = <div className="wimg item-img rounded overflow-hidden"  onClick={() => {this.openItem()}}>
-            <span style={{backgroundImage: `url(${this.props.item.imgUrl})`}} className="ttex"></span>
-            <img className="rounded" src={this.props.item.imgUrl}/>
-        </div>;
-
-        return <>{this.state.isEdit ? edit : view}</>
     }
 }
 

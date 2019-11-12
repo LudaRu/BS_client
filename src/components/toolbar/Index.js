@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import _ from './styles.module.css';
 import bg from '../../gradient.module.css';
-import {Button, ButtonGroup, Container} from "react-bootstrap";
 import {ToolbarService} from "./ToolbarService";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import EditForm from "../main/catalog/item/ContentMore";
 import fadeTransition from "./animate.module.css";
 
 import {faEdit, faHeart as farHeart, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
