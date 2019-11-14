@@ -1,0 +1,17 @@
+.enter {
+    margin-top: 100vh;
+}
+.enterActive {
+    margin-top: 0;
+    transition: all 300ms ease-in;
+}
+.exit {
+
+    margin-top: 0;
+}
+.exitActive {
+    margin-top: 100vh;
+    transition: all 300ms ease-in;
+    /*bottom: -50px;*/
+    /*transition: all 250ms;*/
+}

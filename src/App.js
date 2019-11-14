@@ -1,11 +1,12 @@
 import React from 'react';
 import Routers from "./routes";
-import Container from "react-bootstrap/Container";
 import Toolbar from "./components/toolbar/Index";
+import Window from "./components/window/Index";
 
 const App = () => {
     return <>
         <Routers/>
+        <Window/>
         <Toolbar/>
     </>;
 };

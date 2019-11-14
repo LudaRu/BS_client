@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {withCatalogContext} from "../Catalog";
-import {Container} from "react-bootstrap";
 import './style.css';
 
 class ModalWrapper extends Component {

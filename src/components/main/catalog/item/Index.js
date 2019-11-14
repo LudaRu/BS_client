@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import {ToolbarService} from "../../../toolbar/ToolbarService";
 import * as PropTypes from "prop-types";
 import {withCatalogContext} from "../Catalog";
+import {WindowService} from "../../../window/WindowService";
 
 
 const ItemContext = React.createContext();
@@ -61,7 +62,8 @@ class Index extends React.Component {
     }
 
     openItem() {
-        this.props.context.setChangeItemId(this.props.item.id);
+        // this.props.context.setChangeItemId(this.props.item.id);
+        WindowService.open(<div>ЧЧЧЧЧ</div>);
         ToolbarService.setView(
             <ButtonGroup className="w-100">
                 <Button variant="info">
@@ -75,6 +77,7 @@ class Index extends React.Component {
     }
 
     closeItem() {
+        WindowService.close();
         this.props.context.setChangeItemId(false);
         ToolbarService.reset();
     }
