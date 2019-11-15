@@ -7,8 +7,6 @@ const items$ = new BehaviorSubject(getData());
 
 
 export const CatalogService = {
-    // sendMessage: message => items$.next( {xxx: 123}),
-    clearMessages: () => items$.next([]),
     getItems$: () => items$.asObservable(),
     toggleLike: (id, isLike) => _backSetLikebyId(id, isLike),
     saveItem: (formArr) => saveItem(formArr),

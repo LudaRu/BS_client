@@ -6,7 +6,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 import fadeTransition from "./animate.module.css";
 
 
-class Index extends Component {
+class Window extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +17,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        document.body.overflow = 'hidden';
         this.subCatalogService = WindowService.getObservable().subscribe(v => {
             this.setState({isOpen: !!v});
             if (v !== null) {
@@ -27,6 +28,7 @@ class Index extends Component {
     }
 
     componentWillUnmount() {
+        document.body.overflow = 'auto';
         this.subCatalogService.unsubscribe();
     }
 
@@ -46,4 +48,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default Window;
